@@ -26,6 +26,10 @@ class Portfolio extends React.Component {
   render() {
     const { portfolio } = this.state;
 
+    const portfolio_market_value = portfolio.reduce((sum, stock) => stock.shares_owned * stock.market_price + sum, 0);
+    const portfolio_cost = portfolio.reduce((sum, stock) => stock.shares_owned * stock.cost_per_share + sum, 0);
+    const portfolio_gain_loss = portfolio_market_value - portfolio_cost;
+
     return (
       <div className="container">
         <h1 className="text-center my-4">Stock Portfolio</h1>
@@ -69,6 +73,12 @@ class Portfolio extends React.Component {
               })}
               </tbody>
             </table>
+          </div>
+          <div className="col-12 col-md-6">
+            <h4 className="mb-3">Portfolio Value: $ {portfolio_market_value}</h4>
+          </div>
+          <div className="col-12 col-md-6">
+            <h4 className="mb-3">Portfolio Gain/Loss: $ {portfolio_gain_loss}</h4>
           </div>
         </div>
       </div>
